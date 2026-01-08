@@ -1,12 +1,14 @@
-import { useControl } from '@/hooks/useControl'
 import CardTransaction from '../CardTransaction'
 import DisplayResults from '../DisplayResults'
 import FormNewTransaction from '../FormNewTransaction'
 import * as S from './style'
+import { IControl } from '@/features/controls/models'
 
-const ControlContainer = () => {
-	const { selectedControl } = useControl()
+interface IControlContainer {
+	selectedControl: IControl | null
+}
 
+const ControlContainer = ({ selectedControl }: IControlContainer) => {
 	return (
 		<S.Container>
 			{selectedControl && (
