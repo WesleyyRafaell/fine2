@@ -26,12 +26,31 @@ export const ControlsRepository: IControlRepository = {
 		const { controls } = ControlsStore.getState()
 		return controls
 	},
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	updateControl: function (control: IControl): Promise<IControl> {
-		throw new Error('Function not implemented.')
+	updateNameControl: function (id: string, name: string): IControl[] {
+		const { updateControl } = ControlsStore.getState()
+
+		const { controls } = ControlsStore.getState()
+
+		const newControls = controls.map((control) =>
+			control.id === id ? { ...control, name } : control,
+		)
+
+		updateControl(newControls)
+
+		return newControls
 	},
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	deleteControl: function (id: string): Promise<void> {
-		throw new Error('Function not implemented.')
+	deleteControl: function (id: string): void {
+		const { controls, updateControl, setSelectedControl } =
+			ControlsStore.getState()
+
+		const newControls = controls.filter((control) => control.id !== id)
+
+		updateControl(newControls)
+		setSelectedControl(null)
+	},
+	selectControl: function (id: string): void {
+		const { setSelectedControl } = ControlsStore.getState()
+
+		setSelectedControl(id)
 	},
 }

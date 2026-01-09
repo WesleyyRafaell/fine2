@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components'
-import { motion } from 'framer-motion'
 
-export const Container = styled(motion.div)``
+export const Container = styled.div``
 
-export const Card = styled(motion.div)`
+export const Card = styled.div`
 	${({ theme }) => css`
 		width: 187px;
+		height: 109px;
 		cursor: pointer;
 		border-radius: 12px;
 		text-align: center;
@@ -22,7 +22,7 @@ export const Text = styled.p`
 	`}
 `
 
-export const ContainerIcon = styled(motion.div)`
+export const ContainerIcon = styled.div`
 	padding-top: 13.5px;
 	display: flex;
 	justify-content: center;

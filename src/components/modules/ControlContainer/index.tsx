@@ -1,3 +1,4 @@
+import { ControlName } from '@/components/elements'
 import CardTransaction from '../CardTransaction'
 import DisplayResults from '../DisplayResults'
 import FormNewTransaction from '../FormNewTransaction'
@@ -13,7 +14,8 @@ const ControlContainer = ({ selectedControl }: IControlContainer) => {
 		<S.Container>
 			{selectedControl && (
 				<>
-					<DisplayResults initialValue={selectedControl?.name} />
+					<ControlName selectedControl={selectedControl} />
+					<DisplayResults selectedControl={selectedControl} />
 					{selectedControl.transactions?.map((item) => (
 						<CardTransaction
 							key={item.id}

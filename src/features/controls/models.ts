@@ -14,6 +14,7 @@ export interface IControl {
 export interface IControlRepository {
 	getAllControls: () => IControl[]
 	createControl: () => IControl
-	updateControl: (control: IControl) => Promise<IControl>
-	deleteControl: (id: string) => Promise<void>
+	selectControl: (id: string) => void
+	updateNameControl: (id: string, name: string) => IControl[]
+	deleteControl: (id: string) => void
 }
