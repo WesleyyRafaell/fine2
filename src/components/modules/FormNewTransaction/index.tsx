@@ -2,35 +2,38 @@ import { useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { v4 as uuidv4 } from 'uuid'
 
 import Input from '@/components/elements/Input'
 import SmallButton from '@/components/elements/SmallButton'
 import { formatCurrency } from '@/utils/formatCurrency'
-import { useControl } from '@/hooks/useControl'
+
 import { TypeCardProps } from '../CardTransaction'
 
 import * as S from './style'
-import useTransactions from '@/hooks/useTransactions'
+
+import { NewTransaction } from '@/features/transactions/models'
+import { createTransactionAction } from '@/features/transactions/action'
+import { IControl } from '@/features/controls/models'
 
 const formNewTransactionSchema = z.object({
 	name: z.string().nonempty('Campo obrigatório'),
-	value: z.string().nonempty('Campo obrigatório'),
+	value: z.number().min(0.01, 'Campo obrigatório'),
 })
 
 type FormNewTransactionData = z.infer<typeof formNewTransactionSchema>
 
-const FormNewTransaction = () => {
-	const { selectedControl } = useControl()
-	const { setNewTransaction } = useTransactions()
+type IFormNewTransactionProps = {
+	selectedControl: IControl | null
+}
 
+const FormNewTransaction = ({ selectedControl }: IFormNewTransactionProps) => {
 	const form = useRef<HTMLFormElement>(null)
 	const inputType = useRef<HTMLInputElement>(null)
 
 	const methods = useForm<FormNewTransactionData>({
 		defaultValues: {
 			name: '',
-			value: '',
+			value: 0,
 		},
 		resolver: zodResolver(formNewTransactionSchema),
 	})
@@ -46,25 +49,25 @@ const FormNewTransaction = () => {
 	const handleFormSubmit = (data: FormNewTransactionData) => {
 		//find a better way - typescript
 		if (
-			inputType.current!.value !== 'green' &&
-			inputType.current!.value !== 'red'
+			inputType.current!.value !== 'revenue' &&
+			inputType.current!.value !== 'expense'
 		)
 			return
 
 		const type: TypeCardProps = inputType.current!.value
-		const newTransaction = {
-			id: uuidv4(),
+
+		const newTransaction: NewTransaction = {
 			type,
 			visible: true,
+			idControl: selectedControl!.id,
 			...data,
 		}
 
-		if (!selectedControl) return
-		setNewTransaction(selectedControl.id, newTransaction)
+		createTransactionAction(newTransaction)
 
 		reset({
 			name: '',
-			value: '',
+			value: 0,
 		})
 	}
 
@@ -87,7 +90,7 @@ const FormNewTransaction = () => {
 				/>
 				<SmallButton
 					type="button"
-					onClick={() => handleSubmitFormAction('green')}
+					onClick={() => handleSubmitFormAction('revenue')}
 				>
 					Receita
 				</SmallButton>
@@ -96,7 +99,7 @@ const FormNewTransaction = () => {
 				<Input
 					name="value"
 					value={watch('value')}
-					onChange={(e) => setValue('value', formatCurrency(e.target.value))}
+					onChange={(e) => setValue('value', parseFloat(e.target.value))}
 					labelName="Valor"
 					placeholder="255"
 					inputSize="small"
@@ -106,7 +109,7 @@ const FormNewTransaction = () => {
 				<SmallButton
 					type="button"
 					color="red"
-					onClick={() => handleSubmitFormAction('red')}
+					onClick={() => handleSubmitFormAction('expense')}
 				>
 					Despesa
 				</SmallButton>

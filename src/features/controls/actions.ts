@@ -1,3 +1,4 @@
+import { IControl } from './models'
 import { ControlsRepository } from './repository'
 
 export function createControlAction() {
@@ -28,6 +29,12 @@ export function updateNameControlAction(id: string, name: string) {
 	}
 
 	return { success: true, controls: result }
+}
+
+export function updateValueControlAction(control: IControl) {
+	ControlsRepository.updateValueControl(control)
+
+	return { success: true }
 }
 
 export function selectControlAction(id: string) {

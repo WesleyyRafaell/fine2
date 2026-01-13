@@ -1,4 +1,4 @@
-import { Transaction } from '@/types/transaction'
+import { ITransaction } from '../transactions/models'
 
 export interface IControl {
 	id: string
@@ -8,7 +8,7 @@ export interface IControl {
 		income: number
 		expense: number
 	}
-	transactions: Transaction[]
+	transactions: ITransaction[]
 }
 
 export interface IControlRepository {
@@ -16,5 +16,6 @@ export interface IControlRepository {
 	createControl: () => IControl
 	selectControl: (id: string) => void
 	updateNameControl: (id: string, name: string) => IControl[]
+	updateValueControl: (control: IControl) => void
 	deleteControl: (id: string) => void
 }

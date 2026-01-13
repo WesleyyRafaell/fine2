@@ -27,9 +27,7 @@ export const ControlsRepository: IControlRepository = {
 		return controls
 	},
 	updateNameControl: function (id: string, name: string): IControl[] {
-		const { updateControl } = ControlsStore.getState()
-
-		const { controls } = ControlsStore.getState()
+		const { updateControl, controls } = ControlsStore.getState()
 
 		const newControls = controls.map((control) =>
 			control.id === id ? { ...control, name } : control,
@@ -38,6 +36,38 @@ export const ControlsRepository: IControlRepository = {
 		updateControl(newControls)
 
 		return newControls
+	},
+	updateValueControl: function (updateValueControl: IControl): void {
+		const { updateControl, controls, setSelectedControl } =
+			ControlsStore.getState()
+
+		function getTotal(type: 'revenue' | 'expense') {
+			return updateValueControl.transactions
+				.filter((item) => item.type === type && item.value && item.visible)
+				.reduce(
+					(previousValue, currentValue) => previousValue + currentValue.value,
+					0,
+				)
+		}
+
+		const totalIncome = getTotal('revenue')
+
+		const totalExpense = getTotal('expense')
+
+		const newValues = {
+			expense: totalExpense,
+			income: totalIncome,
+			total: totalIncome - totalExpense,
+		}
+
+		const newControls = controls.map((control) =>
+			control.id === updateValueControl.id
+				? { ...control, values: newValues }
+				: control,
+		)
+
+		updateControl(newControls)
+		setSelectedControl(updateValueControl.id)
 	},
 	deleteControl: function (id: string): void {
 		const { controls, updateControl, setSelectedControl } =

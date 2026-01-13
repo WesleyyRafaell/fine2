@@ -29,8 +29,7 @@ const ControlContainer = ({ selectedControl }: IControlContainer) => {
 					))}
 				</>
 			)}
-
-			<FormNewTransaction />
+			<FormNewTransaction selectedControl={selectedControl} />
 		</S.Container>
 	)
 }

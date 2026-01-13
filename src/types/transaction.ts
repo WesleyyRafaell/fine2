@@ -3,5 +3,5 @@ export type Transaction = {
 	name: string
 	value: string
 	visible: boolean
-	type: 'red' | 'green'
+	type: 'revenue' | 'expense'
 }

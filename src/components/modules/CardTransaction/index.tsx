@@ -8,7 +8,7 @@ import SmallButton from '@/components/elements/SmallButton'
 import useTransactions from '@/hooks/useTransactions'
 import { Transaction } from '@/types/transaction'
 
-export type TypeCardProps = 'red' | 'green'
+export type TypeCardProps = 'revenue' | 'expense'
 
 export type CardTransactionProps = {
 	idControl: string
