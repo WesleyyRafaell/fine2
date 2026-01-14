@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-export const Container = styled.form`
+export const Container = styled.div`
 	${({ theme }) => css`
 		background-color: ${theme.colors.orange};
 		width: 47rem;

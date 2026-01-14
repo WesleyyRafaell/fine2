@@ -23,7 +23,7 @@ export const MoneySign = styled.p<Pick<ResultIndicatorProps, 'moneySignColor'>>`
 
 export const Number = styled.p`
 	${({ theme }) => css`
-		font-size: 4.8rem;
+		font-size: 3.8rem;
 		font-weight: ${theme.font.bold};
 		color: ${theme.colors.white};
 		padding-left: ${theme.font.sizes.xlarge};

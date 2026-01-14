@@ -11,13 +11,19 @@ const ResultIndicator = ({
 	total = 0,
 	moneySignColor = 'orange',
 }: ResultIndicatorProps) => {
+	const formatCurrency = (value: number) =>
+		new Intl.NumberFormat('pt-BR', {
+			style: 'currency',
+			currency: 'BRL',
+		})
+			.format(value)
+			.replace(/\s?R\$\s?/, '')
+
 	return (
 		<S.Container>
 			<S.Text>{text}</S.Text>
 			<S.MoneySign moneySignColor={moneySignColor}>R$</S.MoneySign>
-			<S.Number data-testid="DisplayValue">
-				{new Intl.NumberFormat('pt-BR').format(total)}
-			</S.Number>
+			<S.Number data-testid="DisplayValue">{formatCurrency(total)}</S.Number>
 		</S.Container>
 	)
 }

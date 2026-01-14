@@ -1,11 +1,7 @@
-import { useRef } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
+import { useMemo, useState, useCallback } from 'react'
 
 import Input from '@/components/elements/Input'
 import SmallButton from '@/components/elements/SmallButton'
-import { formatCurrency } from '@/utils/formatCurrency'
 
 import { TypeCardProps } from '../CardTransaction'
 
@@ -14,83 +10,93 @@ import * as S from './style'
 import { NewTransaction } from '@/features/transactions/models'
 import { createTransactionAction } from '@/features/transactions/action'
 import { IControl } from '@/features/controls/models'
-
-const formNewTransactionSchema = z.object({
-	name: z.string().nonempty('Campo obrigatório'),
-	value: z.number().min(0.01, 'Campo obrigatório'),
-})
-
-type FormNewTransactionData = z.infer<typeof formNewTransactionSchema>
+import { formatCurrency } from '@/utils/formatCurrency'
 
 type IFormNewTransactionProps = {
 	selectedControl: IControl | null
 }
 
+type IErrors = {
+	name?: string
+	value?: string
+}
+
 const FormNewTransaction = ({ selectedControl }: IFormNewTransactionProps) => {
-	const form = useRef<HTMLFormElement>(null)
-	const inputType = useRef<HTMLInputElement>(null)
+	const [name, setName] = useState('')
+	const [value, setValue] = useState('')
+	const [submitted, setSubmitted] = useState(false)
 
-	const methods = useForm<FormNewTransactionData>({
-		defaultValues: {
-			name: '',
-			value: 0,
-		},
-		resolver: zodResolver(formNewTransactionSchema),
-	})
+	const catchingErrors = useCallback((): IErrors | null => {
+		const errors: IErrors = {}
 
-	const {
-		handleSubmit,
-		setValue,
-		watch,
-		reset,
-		formState: { errors },
-	} = methods
+		if (!name) {
+			errors.name = 'Nome é obrigatório'
+		}
 
-	const handleFormSubmit = (data: FormNewTransactionData) => {
-		//find a better way - typescript
-		if (
-			inputType.current!.value !== 'revenue' &&
-			inputType.current!.value !== 'expense'
-		)
-			return
+		if (!value) {
+			errors.value = 'Valor é obrigatório'
+		}
 
-		const type: TypeCardProps = inputType.current!.value
+		return Object.keys(errors).length ? errors : null
+	}, [name, value])
+
+	const createNewTransaction = (type: TypeCardProps) => {
+		if (!selectedControl) return
+
+		setSubmitted(true)
+
+		if (catchingErrors()) return
 
 		const newTransaction: NewTransaction = {
 			type,
 			visible: true,
-			idControl: selectedControl!.id,
-			...data,
+			idControl: selectedControl.id,
+			name,
+			value: formatValueField(value) || 0,
 		}
 
 		createTransactionAction(newTransaction)
 
-		reset({
-			name: '',
-			value: 0,
-		})
+		setName('')
+		setValue('')
+		setSubmitted(false)
 	}
 
-	const handleSubmitFormAction = (type: TypeCardProps) => {
-		inputType.current!.value = type
-		form.current!.requestSubmit()
+	const formatValueField = (val: string) => {
+		const digitsOnly = val.replace(/\D/g, '')
+
+		if (digitsOnly === '') {
+			setValue('')
+			return
+		}
+
+		const numberValue = Number(digitsOnly) / 100
+
+		if (!Number.isNaN(numberValue)) {
+			return numberValue
+		}
 	}
+
+	const errors = useMemo(() => {
+		if (!submitted) return null
+		return catchingErrors()
+	}, [submitted, catchingErrors])
 
 	return (
-		<S.Container ref={form} onSubmit={handleSubmit(handleFormSubmit)}>
+		<S.Container>
 			<S.Box>
 				<Input
 					name="name"
-					value={watch('name')}
-					onChange={(e) => setValue('name', e.target.value)}
+					value={name}
+					onChange={(e) => setName(e.target.value)}
 					labelName="Nome transação"
 					placeholder="Luz"
 					inputSize="small"
-					error={errors?.name?.message}
+					error={errors?.name}
 				/>
 				<SmallButton
 					type="button"
-					onClick={() => handleSubmitFormAction('revenue')}
+					onClick={() => createNewTransaction('revenue')}
 				>
 					Receita
 				</SmallButton>
@@ -98,23 +104,22 @@ const FormNewTransaction = ({ selectedControl }: IFormNewTransactionProps) => {
 			<S.Box>
 				<Input
 					name="value"
-					value={watch('value')}
-					onChange={(e) => setValue('value', parseFloat(e.target.value))}
+					value={value === null ? '' : value}
+					onChange={(e) => setValue(formatCurrency(e.target.value))}
 					labelName="Valor"
 					placeholder="255"
 					inputSize="small"
-					error={errors?.value?.message}
+					error={errors?.value}
 					money
 				/>
 				<SmallButton
 					type="button"
 					color="red"
-					onClick={() => handleSubmitFormAction('expense')}
+					onClick={() => createNewTransaction('expense')}
 				>
 					Despesa
 				</SmallButton>
 			</S.Box>
-			<input type="hidden" name="type" ref={inputType} />
 		</S.Container>
 	)
 }
