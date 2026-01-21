@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components'
-import { motion } from 'framer-motion'
 import { TypeCardProps } from '.'
 import { darken } from 'polished'
 
@@ -9,13 +8,13 @@ type ContainerProps = {
 	enablecardcontainer: number
 }
 
-export const Container = styled(motion.div)<ContainerProps>`
+export const Container = styled.div<ContainerProps>`
 	${({ theme, enablecardcontainer }) => css`
 		background-color: ${enablecardcontainer
 			? theme.colors.lightBlue
 			: theme.colors.darkBlue};
 		width: 47rem;
-		height: 7.2rem;
+		height: 15rem;
 		border-radius: 27px;
 		display: flex;
 		align-items: center;
@@ -66,7 +65,7 @@ export const MainContent = styled.div`
 	justify-content: space-between;
 `
 
-export const HeaderContent = styled(motion.div)`
+export const HeaderContent = styled.div`
 	display: flex;
 	justify-content: center;
 `
@@ -100,7 +99,7 @@ export const ImageButton = styled.button`
 	height: 27px;
 `
 
-export const FooterContent = styled(motion.div)`
+export const FooterContent = styled.div`
 	display: flex;
 	justify-content: center;
 `

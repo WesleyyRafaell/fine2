@@ -6,39 +6,14 @@ import { formatCurrency } from '@/utils/formatCurrency'
 import { RenderCondition } from '@/utils/renderCondition'
 import SmallButton from '@/components/elements/SmallButton'
 import useTransactions from '@/hooks/useTransactions'
-import { Transaction } from '@/types/transaction'
+import { ITransaction } from '@/features/transactions/models'
 
 export type TypeCardProps = 'revenue' | 'expense'
 
 export type CardTransactionProps = {
 	idControl: string
 	idTransaction: string
-} & Pick<Transaction, 'name' | 'type' | 'value' | 'visible'>
-
-const containerMotion = {
-	rest: {
-		height: '9.1rem',
-		transition: {
-			duration: 0.4,
-		},
-	},
-	hover: {
-		height: '15rem',
-		transition: {
-			duration: 0.4,
-		},
-	},
-}
-
-const opacityMotion = {
-	rest: { opacity: 0, ease: 'easeOut', duration: 0.2, type: 'tween' },
-	hover: {
-		opacity: 1,
-		transition: {
-			duration: 0.4,
-		},
-	},
-}
+} & Pick<ITransaction, 'name' | 'type' | 'value' | 'visible'>
 
 const CardTransaction = ({
 	idControl,
@@ -98,17 +73,10 @@ const CardTransaction = ({
 	}
 
 	return (
-		<S.Container
-			variants={containerMotion}
-			initial="rest"
-			whileHover="hover"
-			animate="rest"
-			enablecardcontainer={+visible}
-			data-testid="card"
-		>
+		<S.Container enablecardcontainer={+visible} data-testid="card">
 			<S.TypeTransaction data-testid="cardType" type={type} enable={visible} />
 			<S.Content>
-				<S.HeaderContent variants={opacityMotion}>
+				<S.HeaderContent>
 					<S.Wrapper>
 						<S.CircleButton
 							onClick={() => handleChangeTypeCard('red')}
@@ -139,7 +107,7 @@ const CardTransaction = ({
 						money
 					/>
 				</S.MainContent>
-				<S.FooterContent variants={opacityMotion}>
+				<S.FooterContent>
 					<S.Wrapper>
 						<S.ImageButton onClick={() => setOpenModal(true)}>
 							{visible ? (

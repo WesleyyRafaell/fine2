@@ -104,7 +104,7 @@ const FormNewTransaction = ({ selectedControl }: IFormNewTransactionProps) => {
 			<S.Box>
 				<Input
 					name="value"
-					value={value === null ? '' : value}
+					value={value}
 					onChange={(e) => setValue(formatCurrency(e.target.value))}
 					labelName="Valor"
 					placeholder="255"
