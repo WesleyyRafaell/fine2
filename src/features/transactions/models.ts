@@ -10,18 +10,17 @@ export type ITransaction = {
 export type NewTransaction = Omit<ITransaction, 'id'>
 
 export interface ITransactionRepository {
-	getAllTransactions: (idControl: string) => ITransaction[]
 	createTransaction: (newTransaction: NewTransaction) => void
 	updateNameTransaction: (
 		idControl: string,
 		idTransaction: string,
 		name: string,
-	) => ITransaction[]
+	) => void
 	updateValueTransaction: (
 		idControl: string,
 		idTransaction: string,
-		value: string,
-	) => ITransaction[]
+		value: number,
+	) => void
 	updateTypeTransaction: (
 		idControl: string,
 		idTransaction: string,

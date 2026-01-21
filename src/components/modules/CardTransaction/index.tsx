@@ -1,75 +1,69 @@
 import { useState } from 'react'
 import * as S from './style'
 import Input from '../../elements/Input'
-import { useForm } from 'react-hook-form'
-import { formatCurrency } from '@/utils/formatCurrency'
+
 import { RenderCondition } from '@/utils/renderCondition'
 import SmallButton from '@/components/elements/SmallButton'
 import useTransactions from '@/hooks/useTransactions'
 import { ITransaction } from '@/features/transactions/models'
+import {
+	updateNameTransactionAction,
+	updateValueTransactionAction,
+} from '@/features/transactions/action'
 
 export type TypeCardProps = 'revenue' | 'expense'
 
-export type CardTransactionProps = {
-	idControl: string
-	idTransaction: string
-} & Pick<ITransaction, 'name' | 'type' | 'value' | 'visible'>
-
 const CardTransaction = ({
 	idControl,
-	idTransaction,
+	id,
 	name,
 	value,
 	type,
 	visible,
-}: CardTransactionProps) => {
+}: ITransaction) => {
 	const [openModal, setOpenModal] = useState(false)
 
+	const [inputName, setInputName] = useState(name)
+	const [inputValue, setInputValue] = useState<number>(value)
+
 	const {
-		setUpdateTransaction,
 		setUpdateTypeTransaction,
 		setUpdateVisibilityTransaction,
 		setDeleteTransaction,
 	} = useTransactions()
 
-	const methods = useForm({
-		defaultValues: {
-			nameEdit: name,
-			valueEdit: value,
-		},
-	})
-
-	const { setValue, watch } = methods
-
-	const nameInput = watch('nameEdit')
-	const valueInput = watch('valueEdit')
-
 	const toogleCard = () => {
-		setUpdateVisibilityTransaction(idControl, idTransaction, !visible)
+		setUpdateVisibilityTransaction(idControl, id, !visible)
 	}
 
 	const handleChangeTypeCard = (type: 'red' | 'green') => {
-		setUpdateTypeTransaction(idControl, idTransaction, type)
+		setUpdateTypeTransaction(idControl, id, type)
 	}
 
 	const handleDelete = () => {
-		setDeleteTransaction(idControl, idTransaction)
+		setDeleteTransaction(idControl, id)
 		setOpenModal(false)
 	}
 
 	const handleNameEdit = (value: string) => {
-		setValue('nameEdit', value)
-		setUpdateTransaction(idControl, idTransaction, 'name', value)
+		setInputName(value)
+		updateNameTransactionAction(idControl, id, value)
 	}
 
-	const handleValueEdit = (value: string) => {
-		setValue('valueEdit', formatCurrency(value))
-		setUpdateTransaction(
-			idControl,
-			idTransaction,
-			'value',
-			formatCurrency(value),
-		)
+	const handleValueEdit = (newValue: string) => {
+		const numericValue = Number(newValue.replace(/\D/g, '')) / 100
+
+		if (Number.isNaN(numericValue)) return
+
+		setInputValue(numericValue)
+		updateValueTransactionAction(idControl, id, numericValue)
+	}
+
+	function formatCurrencyFromNumber(value: number): string {
+		return value.toLocaleString('pt-BR', {
+			minimumFractionDigits: 2,
+			maximumFractionDigits: 2,
+		})
 	}
 
 	return (
@@ -93,14 +87,14 @@ const CardTransaction = ({
 				<S.MainContent>
 					<Input
 						name="nameEdit"
-						value={nameInput}
+						value={inputName}
 						onChange={(e) => handleNameEdit(e.target.value)}
 						error={undefined}
 						inputSize="small"
 					/>
 					<Input
 						name="valueEdit"
-						value={valueInput}
+						value={formatCurrencyFromNumber(inputValue)}
 						onChange={(e) => handleValueEdit(e.target.value)}
 						error={undefined}
 						inputSize="small"

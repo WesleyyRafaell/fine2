@@ -1,11 +1,9 @@
 import { ControlsStore } from '@/store/control-store'
 import { ITransaction, ITransactionRepository, NewTransaction } from './models'
 import { updateValueControlAction } from '../controls/actions'
+import { IControl } from '../controls/models'
 
 export const TransactionRepository: ITransactionRepository = {
-	getAllTransactions: function (idControl: string): ITransaction[] {
-		throw new Error('Function not implemented.')
-	},
 	createTransaction: function (transaction: NewTransaction): void {
 		const { controls } = ControlsStore.getState()
 
@@ -25,15 +23,54 @@ export const TransactionRepository: ITransactionRepository = {
 		idControl: string,
 		idTransaction: string,
 		name: string,
-	): ITransaction[] {
-		throw new Error('Function not implemented.')
+	): void {
+		const { controls, updateControl, setSelectedControl } =
+			ControlsStore.getState()
+
+		const newControls: IControl[] = controls.map((control) => {
+			if (control.id === idControl) {
+				control.transactions = control.transactions.map((transaction) => {
+					if (transaction.id === idTransaction) {
+						return {
+							...transaction,
+							name,
+						}
+					}
+					return transaction
+				})
+
+				setSelectedControl(control.id)
+			}
+
+			return control
+		})
+
+		updateControl(newControls)
 	},
 	updateValueTransaction: function (
 		idControl: string,
 		idTransaction: string,
-		value: string,
-	): ITransaction[] {
-		throw new Error('Function not implemented.')
+		value: number,
+	): void {
+		const { controls } = ControlsStore.getState()
+
+		controls.map((control) => {
+			if (control.id === idControl) {
+				control.transactions = control.transactions.map((transaction) => {
+					if (transaction.id === idTransaction) {
+						return {
+							...transaction,
+							value: value,
+						}
+					}
+					return transaction
+				})
+
+				updateValueControlAction(control)
+			}
+
+			return control
+		})
 	},
 	updateTypeTransaction: function (
 		idControl: string,

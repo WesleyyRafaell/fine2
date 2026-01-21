@@ -20,7 +20,7 @@ const ControlContainer = ({ selectedControl }: IControlContainer) => {
 						<CardTransaction
 							key={item.id}
 							idControl={selectedControl.id}
-							idTransaction={item.id}
+							id={item.id}
 							name={item.name}
 							value={item.value}
 							type={item.type}
