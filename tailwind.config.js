@@ -22,6 +22,7 @@ export default {
         revenue: '#21BE3A',
         darkRed: '#A43232',
         orange: '#CF815F',
+				lightRed: '#DD4747',
       },
       fontSize: {
         xsmall: '1.2rem',
@@ -52,5 +53,34 @@ export default {
     },
   },
   plugins: [],
+  safelist: [
+    // Text colors
+    'text-primary',
+    'text-white',
+    'text-darkGray',
+    'text-darkRed',
+    'text-lightRed',
+    'text-medium',
+    'text-xxxlarge',
+    'text-expense',
+    'text-revenue',
+    'text-green',
+    'text-red',
+    'text-orange',
+    'text-blue',
+    'text-lightBlue',
+    'text-darkBlue',
+    // Background colors
+    'bg-primary',
+    'bg-green',
+    'bg-red',
+    'bg-expense',
+    'bg-revenue',
+    'bg-orange',
+    'bg-lightBlue',
+    'bg-darkBlue',
+    'bg-lightBg',
+    'bg-blue',
+  ],
 }
 

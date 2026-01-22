@@ -28,7 +28,7 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-primary text-white w-[152px] h-[66px] rounded-[12px] border-none font-bold cursor-pointer;
+    @apply bg-primary text-white h-[66px] rounded-[12px] border-none font-bold cursor-pointer;
   }
 
   .btn-small {

@@ -62,17 +62,24 @@ const CardTransaction = ({
 	}
 
 	const bgColor = visible ? 'bg-lightBlue' : 'bg-darkBlue'
-	const typeBarColor = visible ? `bg-${type === 'expense' ? 'expense' : 'revenue'}` : `bg-[${type === 'expense' ? '#A43232' : '#1B9C30'}]`
+
+	const typeBarColor = `bg-${type === 'expense' ? 'expense' : 'green'}`
 
 	return (
-		<div data-testid="card" className={`${bgColor} w-[47rem] h-[15rem] rounded-[27px] flex items-center overflow-hidden pr-[2.8rem]`}>
-			<div data-testid="cardType" className={`${typeBarColor} h-full w-[2.1rem] mr-[1.5rem]`}></div>
+		<div
+			data-testid="card"
+			className={`${bgColor} w-[47rem] h-[15rem] rounded-[27px] flex items-center overflow-hidden pr-[2.8rem]`}
+		>
+			<div
+				data-testid="cardType"
+				className={`${typeBarColor} h-full w-[2.1rem] mr-[1.5rem]`}
+			></div>
 			<div className="w-full flex flex-col h-full justify-between py-[18px]">
 				<div className="flex justify-center">
 					<div className="w-[6.8rem] flex justify-between">
 						<button
 							onClick={() => handleChangeTypeCard('expense')}
-							className="circle-button bg-red"
+							className="circle-button bg-expense"
 							data-testid="buttonRed"
 						/>
 						<button
@@ -99,7 +106,7 @@ const CardTransaction = ({
 						money
 					/>
 				</div>
-				<div className="flex justify-between">
+				<div className="flex justify-center">
 					<div className="w-[6.8rem] flex justify-between">
 						<button onClick={() => setOpenModal(true)} className="image-button">
 							{visible ? (
@@ -118,7 +125,11 @@ const CardTransaction = ({
 								/>
 							)}
 						</button>
-						<button data-testid="buttonDisableCard" onClick={toogleCard} className="image-button">
+						<button
+							data-testid="buttonDisableCard"
+							onClick={toogleCard}
+							className="image-button"
+						>
 							{visible ? (
 								<img
 									src="/icons/disableIcon.png"

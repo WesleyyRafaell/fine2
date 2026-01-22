@@ -39,7 +39,7 @@ declare module 'styled-components' {
 			darkGray: string
 			green: string
 			darkGreen: string
-			red: string
+			lightRed: string
 			darkRed: string
 			orange: string
 			revenue: string

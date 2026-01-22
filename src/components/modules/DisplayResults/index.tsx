@@ -31,7 +31,7 @@ const DisplayResults = ({ selectedControl }: DisplayResultsProps) => {
 				total={values?.total}
 				text="Total"
 			/>
-			<div className="flex justify-space-between w-full">
+			<div className="flex justify-between w-full">
 				<ResultIndicator
 					moneySignColor="green"
 					total={values?.income}

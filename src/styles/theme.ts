@@ -37,7 +37,7 @@ export default {
 		green: '#21BE3A',
 		expense: '#DD4747',
 		darkGreen: '#1B9C30',
-		red: '#DD4747',
+		lightRed: '#DD4747',
 		revenue: '#21BE3A',
 		darkRed: '#A43232',
 		orange: '#CF815F',

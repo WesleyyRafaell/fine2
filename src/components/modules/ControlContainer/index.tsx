@@ -15,17 +15,19 @@ const ControlContainer = ({ selectedControl }: IControlContainer) => {
 				<>
 					<ControlName selectedControl={selectedControl} />
 					<DisplayResults selectedControl={selectedControl} />
-					{selectedControl.transactions?.map((item) => (
-						<CardTransaction
-							key={item.id}
-							idControl={selectedControl.id}
-							id={item.id}
-							name={item.name}
-							value={item.value}
-							type={item.type}
-							visible={item.visible}
-						/>
-					))}
+					<div className="flex flex-col gap-8 mb-[4rem]">
+						{selectedControl.transactions?.map((item) => (
+							<CardTransaction
+								key={item.id}
+								idControl={selectedControl.id}
+								id={item.id}
+								name={item.name}
+								value={item.value}
+								type={item.type}
+								visible={item.visible}
+							/>
+						))}
+					</div>
 				</>
 			)}
 			<FormNewTransaction selectedControl={selectedControl} />

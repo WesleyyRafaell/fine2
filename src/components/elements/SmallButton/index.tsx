@@ -8,7 +8,7 @@ export type ButtonProps = {
 } & ButtonTypes
 
 const SmallButton = ({ children, color = 'green', ...rest }: ButtonProps) => {
-	const bgColor = color === 'green' ? 'bg-green' : 'bg-red'
+	const bgColor = color === 'green' ? 'bg-green' : 'bg-expense'
 
 	return (
 		<button className={`btn-small ${bgColor} text-white`} {...rest}>

@@ -25,10 +25,17 @@ const Card = ({ id, name = 'Novo controle' }: CardProps) => {
 
 	return (
 		<div>
-			<div data-testid="Card" onClick={selectControl} className="w-[187px] h-[109px] cursor-pointer rounded-[12px] text-center pt-[27px] bg-orange">
+			<div
+				data-testid="Card"
+				onClick={selectControl}
+				className="w-[187px] h-[109px] cursor-pointer rounded-[12px] text-center pt-[27px] bg-orange"
+			>
 				<p className="text-[18px] font-bold text-white">{name}</p>
 				<div className="pt-[13.5px] flex justify-center items-center">
-					<div className="bg-[#00000000] inline-block w-[28.3px] h-[28.3px] rounded-full flex justify-center items-center transition-all duration-500 hover:bg-[#0000001a]" onClick={() => setOpenModal(true)}>
+					<div
+						className="bg-[#00000000] inline-block w-[28.3px] h-[28.3px] rounded-full flex justify-center items-center transition-all duration-500 hover:bg-[#0000001a]"
+						onClick={() => setOpenModal(true)}
+					>
 						<TrashBlueIcon />
 					</div>
 				</div>

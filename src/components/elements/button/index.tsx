@@ -4,13 +4,13 @@ type ButtonTypes = ButtonHTMLAttributes<HTMLButtonElement>
 
 type ButtonProps = {
 	children: string
-	passFunction: () => void
+	onClick: () => void
 } & ButtonTypes
 
-const Button = ({ children, passFunction }: ButtonProps) => {
+const Button = ({ children, onClick }: ButtonProps) => {
 	return (
-		<button onClick={passFunction} className="btn-primary">
-			<p>{children}</p>
+		<button onClick={onClick} className="btn-primary w-[187px]">
+			<p className="text-[18px] font-bold text-white">{children}</p>
 		</button>
 	)
 }

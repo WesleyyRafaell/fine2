@@ -33,7 +33,9 @@ const ControlName = ({ selectedControl }: ControlNameProps) => {
 		<div className="w-[47rem] flex flex-col items-center">
 			<div className="w-full mb-[4rem]">
 				<div className="flex flex-col">
-					<label htmlFor="input" className="label-base">Nome do controle</label>
+					<label htmlFor="input" className="label-base">
+						Nome do controle
+					</label>
 					<div className="flex justify-between max-w-[22rem] border-b border-[#f7f7f754] pb-[0.5rem]">
 						<input
 							type="text"
@@ -44,7 +46,10 @@ const ControlName = ({ selectedControl }: ControlNameProps) => {
 							ref={inputName}
 							className="input-base w-[17.9rem]"
 						/>
-						<IoClose onClick={cleanNameInput} className="cursor-pointer text-white font-bold text-[2rem]" />
+						<IoClose
+							onClick={cleanNameInput}
+							className="cursor-pointer text-white font-bold text-[2rem]"
+						/>
 					</div>
 				</div>
 			</div>

@@ -95,7 +95,7 @@ const FormNewTransaction = ({ selectedControl }: IFormNewTransactionProps) => {
 				<SmallButton
 					type="button"
 					onClick={() => createNewTransaction('revenue')}
-					className="bg-green"
+					color="green"
 				>
 					Receita
 				</SmallButton>

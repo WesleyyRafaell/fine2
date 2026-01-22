@@ -15,7 +15,7 @@ const View = ({ controls, selectedControl, newControl }: IViewProps) => {
 		<div className="bg-blue p-[5rem] min-h-screen">
 			<div className="max-w-[120rem] mx-auto flex">
 				<div className="w-1/2 flex items-start justify-start flex-col">
-					<Button passFunction={newControl}>Novo controle</Button>
+					<Button onClick={newControl}>Novo controle</Button>
 					<div className="mt-[2rem] flex-wrap flex [&>div]:m-[0_1rem_1rem_0]">
 						{controls?.map((item) => (
 							<Card key={item.id} id={item.id} name={item.name} />
