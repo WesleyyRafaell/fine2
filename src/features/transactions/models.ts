@@ -25,14 +25,11 @@ export interface ITransactionRepository {
 		idControl: string,
 		idTransaction: string,
 		type: 'revenue' | 'expense',
-	) => ITransaction[]
+	) => void
 	updateVisibilityTransaction: (
 		idControl: string,
 		idTransaction: string,
 		visible: boolean,
-	) => ITransaction[]
-	deleteTransaction: (
-		idControl: string,
-		idTransaction: string,
-	) => ITransaction[]
+	) => void
+	deleteTransaction: (idControl: string, idTransaction: string) => void
 }

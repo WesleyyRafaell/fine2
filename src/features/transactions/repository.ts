@@ -1,5 +1,5 @@
 import { ControlsStore } from '@/store/control-store'
-import { ITransaction, ITransactionRepository, NewTransaction } from './models'
+import { ITransactionRepository, NewTransaction } from './models'
 import { updateValueControlAction } from '../controls/actions'
 import { IControl } from '../controls/models'
 
@@ -76,20 +76,63 @@ export const TransactionRepository: ITransactionRepository = {
 		idControl: string,
 		idTransaction: string,
 		type: 'revenue' | 'expense',
-	): ITransaction[] {
-		throw new Error('Function not implemented.')
+	): void {
+		const { controls } = ControlsStore.getState()
+
+		controls.map((control) => {
+			if (control.id === idControl) {
+				control.transactions = control.transactions.map((transaction) => {
+					if (transaction.id === idTransaction) {
+						return {
+							...transaction,
+							type,
+						}
+					}
+					return transaction
+				})
+
+				updateValueControlAction(control)
+			}
+
+			return control
+		})
 	},
 	updateVisibilityTransaction: function (
 		idControl: string,
 		idTransaction: string,
 		visible: boolean,
-	): ITransaction[] {
-		throw new Error('Function not implemented.')
+	): void {
+		const { controls } = ControlsStore.getState()
+
+		controls.map((control) => {
+			if (control.id === idControl) {
+				control.transactions = control.transactions.map((transaction) => {
+					if (transaction.id === idTransaction) {
+						return {
+							...transaction,
+							visible,
+						}
+					}
+					return transaction
+				})
+
+				updateValueControlAction(control)
+			}
+
+			return control
+		})
 	},
-	deleteTransaction: function (
-		idControl: string,
-		idTransaction: string,
-	): ITransaction[] {
-		throw new Error('Function not implemented.')
+	deleteTransaction: function (idControl: string, idTransaction: string): void {
+		const { controls } = ControlsStore.getState()
+
+		controls.filter((item) => {
+			if (item.id === idControl) {
+				item.transactions = item.transactions.filter(
+					(itemTransaction) => itemTransaction.id !== idTransaction,
+				)
+
+				updateValueControlAction(item)
+			}
+		})
 	},
 }

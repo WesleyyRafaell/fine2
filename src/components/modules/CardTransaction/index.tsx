@@ -4,11 +4,13 @@ import Input from '../../elements/Input'
 
 import { RenderCondition } from '@/utils/renderCondition'
 import SmallButton from '@/components/elements/SmallButton'
-import useTransactions from '@/hooks/useTransactions'
 import { ITransaction } from '@/features/transactions/models'
 import {
+	deleteTransactionAction,
 	updateNameTransactionAction,
+	updateTypeTransactionAction,
 	updateValueTransactionAction,
+	updateVisibilityTransactionAction,
 } from '@/features/transactions/action'
 
 export type TypeCardProps = 'revenue' | 'expense'
@@ -26,22 +28,16 @@ const CardTransaction = ({
 	const [inputName, setInputName] = useState(name)
 	const [inputValue, setInputValue] = useState<number>(value)
 
-	const {
-		setUpdateTypeTransaction,
-		setUpdateVisibilityTransaction,
-		setDeleteTransaction,
-	} = useTransactions()
-
 	const toogleCard = () => {
-		setUpdateVisibilityTransaction(idControl, id, !visible)
+		updateVisibilityTransactionAction(idControl, id, !visible)
 	}
 
-	const handleChangeTypeCard = (type: 'red' | 'green') => {
-		setUpdateTypeTransaction(idControl, id, type)
+	const handleChangeTypeCard = (type: TypeCardProps) => {
+		updateTypeTransactionAction(idControl, id, type)
 	}
 
 	const handleDelete = () => {
-		setDeleteTransaction(idControl, id)
+		deleteTransactionAction(idControl, id)
 		setOpenModal(false)
 	}
 
@@ -73,12 +69,12 @@ const CardTransaction = ({
 				<S.HeaderContent>
 					<S.Wrapper>
 						<S.CircleButton
-							onClick={() => handleChangeTypeCard('red')}
+							onClick={() => handleChangeTypeCard('expense')}
 							color="red"
 							data-testid="buttonRed"
 						/>
 						<S.CircleButton
-							onClick={() => handleChangeTypeCard('green')}
+							onClick={() => handleChangeTypeCard('revenue')}
 							color="green"
 							data-testid="buttonGreen"
 						/>
