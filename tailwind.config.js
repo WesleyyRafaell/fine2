@@ -1,0 +1,56 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        primary: '#757eff',
+        mainBg: '#06092B',
+        lightBg: '#F2F2F2',
+        lightGray: '#EAEAEA',
+        blue: '#4A53CF',
+        lightBlue: '#757EFF',
+        darkBlue: '#5f65c5',
+        gray: '#8F8F8F',
+        darkGray: '#2E2F42',
+        green: '#21BE3A',
+        expense: '#DD4747',
+        darkGreen: '#1B9C30',
+        revenue: '#21BE3A',
+        darkRed: '#A43232',
+        orange: '#CF815F',
+      },
+      fontSize: {
+        xsmall: '1.2rem',
+        small: '1.4rem',
+        medium: '1.6rem',
+        large: '1.8rem',
+        xlarge: '2.0rem',
+        xxlarge: '2.8rem',
+        xxxlarge: '5.2rem',
+      },
+      fontWeight: {
+        light: 300,
+        normal: 400,
+        bold: 600,
+      },
+      spacing: {
+        xxsmall: '0.8rem',
+        xsmall: '1.6rem',
+        small: '2.4rem',
+        medium: '3.2rem',
+        large: '4.0rem',
+        xlarge: '4.8rem',
+        xxlarge: '9.2rem',
+      },
+      borderRadius: {
+        xs: '0.4rem',
+      },
+    },
+  },
+  plugins: [],
+}
+

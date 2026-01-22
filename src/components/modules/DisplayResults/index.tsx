@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react'
 
 import ResultIndicator from '@/components/elements/ResultIndicator'
 
-import * as S from './style'
-
 import { IControl } from '@/features/controls/models'
 
 type DisplayResultsProps = {
@@ -27,13 +25,13 @@ const DisplayResults = ({ selectedControl }: DisplayResultsProps) => {
 	}, [selectedControl])
 
 	return (
-		<S.Container>
+		<div className="w-[47rem] flex flex-col items-center">
 			<ResultIndicator
 				moneySignColor="orange"
 				total={values?.total}
 				text="Total"
 			/>
-			<S.Box>
+			<div className="flex justify-space-between w-full">
 				<ResultIndicator
 					moneySignColor="green"
 					total={values?.income}
@@ -44,8 +42,8 @@ const DisplayResults = ({ selectedControl }: DisplayResultsProps) => {
 					total={values?.expense}
 					text="Despesas"
 				/>
-			</S.Box>
-		</S.Container>
+			</div>
+		</div>
 	)
 }
 

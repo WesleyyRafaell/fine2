@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import * as S from './style'
 import Input from '../../elements/Input'
 
 import { RenderCondition } from '@/utils/renderCondition'
@@ -62,25 +61,28 @@ const CardTransaction = ({
 		})
 	}
 
+	const bgColor = visible ? 'bg-lightBlue' : 'bg-darkBlue'
+	const typeBarColor = visible ? `bg-${type === 'expense' ? 'expense' : 'revenue'}` : `bg-[${type === 'expense' ? '#A43232' : '#1B9C30'}]`
+
 	return (
-		<S.Container enablecardcontainer={+visible} data-testid="card">
-			<S.TypeTransaction data-testid="cardType" type={type} enable={visible} />
-			<S.Content>
-				<S.HeaderContent>
-					<S.Wrapper>
-						<S.CircleButton
+		<div data-testid="card" className={`${bgColor} w-[47rem] h-[15rem] rounded-[27px] flex items-center overflow-hidden pr-[2.8rem]`}>
+			<div data-testid="cardType" className={`${typeBarColor} h-full w-[2.1rem] mr-[1.5rem]`}></div>
+			<div className="w-full flex flex-col h-full justify-between py-[18px]">
+				<div className="flex justify-center">
+					<div className="w-[6.8rem] flex justify-between">
+						<button
 							onClick={() => handleChangeTypeCard('expense')}
-							color="red"
+							className="circle-button bg-red"
 							data-testid="buttonRed"
 						/>
-						<S.CircleButton
+						<button
 							onClick={() => handleChangeTypeCard('revenue')}
-							color="green"
+							className="circle-button bg-green"
 							data-testid="buttonGreen"
 						/>
-					</S.Wrapper>
-				</S.HeaderContent>
-				<S.MainContent>
+					</div>
+				</div>
+				<div className="flex justify-between">
 					<Input
 						name="nameEdit"
 						value={inputName}
@@ -96,10 +98,10 @@ const CardTransaction = ({
 						inputSize="small"
 						money
 					/>
-				</S.MainContent>
-				<S.FooterContent>
-					<S.Wrapper>
-						<S.ImageButton onClick={() => setOpenModal(true)}>
+				</div>
+				<div className="flex justify-between">
+					<div className="w-[6.8rem] flex justify-between">
+						<button onClick={() => setOpenModal(true)} className="image-button">
 							{visible ? (
 								<img
 									src="/icons/trashIcon.png"
@@ -115,8 +117,8 @@ const CardTransaction = ({
 									alt="Trash icon"
 								/>
 							)}
-						</S.ImageButton>
-						<S.ImageButton data-testid="buttonDisableCard" onClick={toogleCard}>
+						</button>
+						<button data-testid="buttonDisableCard" onClick={toogleCard} className="image-button">
 							{visible ? (
 								<img
 									src="/icons/disableIcon.png"
@@ -132,28 +134,28 @@ const CardTransaction = ({
 									alt="Disable Icon"
 								/>
 							)}
-						</S.ImageButton>
-					</S.Wrapper>
-				</S.FooterContent>
-			</S.Content>
+						</button>
+					</div>
+				</div>
+			</div>
 			<RenderCondition condition={openModal}>
-				<S.WrapperModal>
-					<S.Modal>
-						<S.TitleModal>
+				<div className="fixed top-0 left-0 w-full h-full bg-[#00000069] box-border flex items-center justify-center">
+					<div className="w-[45rem] p-[2rem] bg-white rounded-[0.625rem] -rotate-1">
+						<h3 className="text-darkGray text-[1.7rem]">
 							Tem certeza que deseja apagar esta transação?
-						</S.TitleModal>
-						<S.ContainerButtonsModal>
+						</h3>
+						<div className="pt-[5rem] flex justify-between">
 							<SmallButton color="red" onClick={handleDelete}>
 								Apagar
 							</SmallButton>
 							<SmallButton onClick={() => setOpenModal(false)}>
 								Cancelar
 							</SmallButton>
-						</S.ContainerButtonsModal>
-					</S.Modal>
-				</S.WrapperModal>
+						</div>
+					</div>
+				</div>
 			</RenderCondition>
-		</S.Container>
+		</div>
 	)
 }
 

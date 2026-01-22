@@ -1,5 +1,4 @@
 import { ButtonHTMLAttributes } from 'react'
-import * as S from './style'
 
 type ButtonTypes = ButtonHTMLAttributes<HTMLButtonElement>
 
@@ -10,9 +9,9 @@ type ButtonProps = {
 
 const Button = ({ children, passFunction }: ButtonProps) => {
 	return (
-		<S.Button onClick={passFunction}>
+		<button onClick={passFunction} className="btn-primary">
 			<p>{children}</p>
-		</S.Button>
+		</button>
 	)
 }
 

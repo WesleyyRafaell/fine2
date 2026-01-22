@@ -1,5 +1,3 @@
-import * as S from './style'
-
 export type ResultIndicatorProps = {
 	total?: number
 	text?: string
@@ -20,11 +18,11 @@ const ResultIndicator = ({
 			.replace(/\s?R\$\s?/, '')
 
 	return (
-		<S.Container>
-			<S.Text>{text}</S.Text>
-			<S.MoneySign moneySignColor={moneySignColor}>R$</S.MoneySign>
-			<S.Number data-testid="DisplayValue">{formatCurrency(total)}</S.Number>
-		</S.Container>
+		<div>
+			<p className="text-medium font-bold text-white mb-[1.2rem]">{text}</p>
+			<p className={`text-[1.5rem] font-bold text-${moneySignColor} mb-[0.9rem]`}>R$</p>
+			<p data-testid="DisplayValue" className="text-xxxlarge font-bold text-white pl-[2.0rem]">{formatCurrency(total)}</p>
+		</div>
 	)
 }
 

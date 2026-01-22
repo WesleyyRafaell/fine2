@@ -2,7 +2,6 @@ import { ControlName } from '@/components/elements'
 import CardTransaction from '../CardTransaction'
 import DisplayResults from '../DisplayResults'
 import FormNewTransaction from '../FormNewTransaction'
-import * as S from './style'
 import { IControl } from '@/features/controls/models'
 
 interface IControlContainer {
@@ -11,7 +10,7 @@ interface IControlContainer {
 
 const ControlContainer = ({ selectedControl }: IControlContainer) => {
 	return (
-		<S.Container>
+		<div className="[&>div:first-child]:mb-[7.5rem] [&>div:nth-child(3)]:mt-[7.5rem] [&>div:nth-child(5)]:m-[3rem_0]">
 			{selectedControl && (
 				<>
 					<ControlName selectedControl={selectedControl} />
@@ -30,7 +29,7 @@ const ControlContainer = ({ selectedControl }: IControlContainer) => {
 				</>
 			)}
 			<FormNewTransaction selectedControl={selectedControl} />
-		</S.Container>
+		</div>
 	)
 }
 

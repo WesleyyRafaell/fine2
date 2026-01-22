@@ -1,31 +1,5 @@
-import styled, { css } from 'styled-components'
-import { ResultIndicatorProps } from '.'
-
-export const Container = styled.div``
-
-export const Text = styled.p`
-	${({ theme }) => css`
-		font-size: ${theme.font.sizes.medium};
-		font-weight: ${theme.font.bold};
-		color: ${theme.colors.white};
-		margin-bottom: 1.2rem;
-	`}
-`
-
-export const MoneySign = styled.p<Pick<ResultIndicatorProps, 'moneySignColor'>>`
-	${({ theme, moneySignColor }) => css`
-		font-size: 1.5rem;
-		font-weight: ${theme.font.bold};
-		color: ${theme.colors[moneySignColor!]};
-		margin-bottom: 0.9rem;
-	`}
-`
-
-export const Number = styled.p`
-	${({ theme }) => css`
-		font-size: 3.8rem;
-		font-weight: ${theme.font.bold};
-		color: ${theme.colors.white};
-		padding-left: ${theme.font.sizes.xlarge};
-	`}
-`
+// Tailwind CSS classes used in ResultIndicator component
+// Container: (empty)
+// Text: text-medium font-bold text-white mb-[1.2rem]
+// MoneySign: text-[1.5rem] font-bold text-${moneySignColor} mb-[0.9rem]
+// Number: text-xxxlarge font-bold text-white pl-[2.0rem]

@@ -1,5 +1,4 @@
 import { ButtonHTMLAttributes } from 'react'
-import * as S from './style'
 
 type ButtonTypes = ButtonHTMLAttributes<HTMLButtonElement>
 
@@ -9,10 +8,12 @@ export type ButtonProps = {
 } & ButtonTypes
 
 const SmallButton = ({ children, color = 'green', ...rest }: ButtonProps) => {
+	const bgColor = color === 'green' ? 'bg-green' : 'bg-red'
+
 	return (
-		<S.Button color={color} {...rest}>
+		<button className={`btn-small ${bgColor} text-white`} {...rest}>
 			<p>{children}</p>
-		</S.Button>
+		</button>
 	)
 }
 

@@ -1,5 +1,3 @@
-import * as S from './style'
-
 import TrashBlueIcon from '../../icons/Trash/index'
 import { useState } from 'react'
 import { RenderCondition } from '@/utils/renderCondition'
@@ -26,33 +24,33 @@ const Card = ({ id, name = 'Novo controle' }: CardProps) => {
 	}
 
 	return (
-		<S.Container>
-			<S.Card data-testid="Card" onClick={selectControl}>
-				<S.Text>{name}</S.Text>
-				<S.ContainerIcon>
-					<S.BoxIcon onClick={() => setOpenModal(true)}>
+		<div>
+			<div data-testid="Card" onClick={selectControl} className="w-[187px] h-[109px] cursor-pointer rounded-[12px] text-center pt-[27px] bg-orange">
+				<p className="text-[18px] font-bold text-white">{name}</p>
+				<div className="pt-[13.5px] flex justify-center items-center">
+					<div className="bg-[#00000000] inline-block w-[28.3px] h-[28.3px] rounded-full flex justify-center items-center transition-all duration-500 hover:bg-[#0000001a]" onClick={() => setOpenModal(true)}>
 						<TrashBlueIcon />
-					</S.BoxIcon>
-				</S.ContainerIcon>
-			</S.Card>
+					</div>
+				</div>
+			</div>
 			<RenderCondition condition={openModal}>
-				<S.WrapperModal>
-					<S.Modal>
-						<S.TitleModal>
+				<div className="fixed top-0 left-0 w-full h-full bg-[#00000069] box-border flex items-center justify-center">
+					<div className="w-[45rem] p-[2rem] bg-white rounded-[0.625rem] -rotate-1">
+						<h3 className="text-darkGray text-[1.7rem]">
 							Tem certeza que deseja apagar este controle?
-						</S.TitleModal>
-						<S.ContainerButtonsModal>
+						</h3>
+						<div className="pt-[5rem] flex justify-between">
 							<SmallButton color="red" onClick={deleteControl}>
 								Apagar
 							</SmallButton>
 							<SmallButton onClick={() => setOpenModal(false)}>
 								Cancelar
 							</SmallButton>
-						</S.ContainerButtonsModal>
-					</S.Modal>
-				</S.WrapperModal>
+						</div>
+					</div>
+				</div>
 			</RenderCondition>
-		</S.Container>
+		</div>
 	)
 }
 

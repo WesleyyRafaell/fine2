@@ -5,8 +5,6 @@ import SmallButton from '@/components/elements/SmallButton'
 
 import { TypeCardProps } from '../CardTransaction'
 
-import * as S from './style'
-
 import { NewTransaction } from '@/features/transactions/models'
 import { createTransactionAction } from '@/features/transactions/action'
 import { IControl } from '@/features/controls/models'
@@ -83,8 +81,8 @@ const FormNewTransaction = ({ selectedControl }: IFormNewTransactionProps) => {
 	}, [submitted, catchingErrors])
 
 	return (
-		<S.Container>
-			<S.Box>
+		<div className="bg-orange w-[47rem] rounded-[2.7rem] h-[16.3rem] flex justify-between p-[2.4rem_3.1rem]">
+			<div className="h-full flex flex-col items-center justify-between">
 				<Input
 					name="name"
 					value={name}
@@ -97,11 +95,12 @@ const FormNewTransaction = ({ selectedControl }: IFormNewTransactionProps) => {
 				<SmallButton
 					type="button"
 					onClick={() => createNewTransaction('revenue')}
+					className="bg-green"
 				>
 					Receita
 				</SmallButton>
-			</S.Box>
-			<S.Box>
+			</div>
+			<div className="h-full flex flex-col items-center justify-between">
 				<Input
 					name="value"
 					value={value}
@@ -119,8 +118,8 @@ const FormNewTransaction = ({ selectedControl }: IFormNewTransactionProps) => {
 				>
 					Despesa
 				</SmallButton>
-			</S.Box>
-		</S.Container>
+			</div>
+		</div>
 	)
 }
 

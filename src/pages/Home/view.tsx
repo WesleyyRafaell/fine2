@@ -1,8 +1,6 @@
 import Card from '../../components/elements/Card'
 import ControlContainer from '../../components/modules/ControlContainer'
 import { RenderCondition } from '../../utils/renderCondition'
-
-import * as S from '../../containers/Home/style'
 import Button from '../../components/elements/button'
 import { IControl } from '@/features/controls/models'
 
@@ -14,23 +12,23 @@ interface IViewProps {
 
 const View = ({ controls, selectedControl, newControl }: IViewProps) => {
 	return (
-		<S.Container>
-			<S.Wrapper>
-				<S.Box>
+		<div className="bg-blue p-[5rem] min-h-screen">
+			<div className="max-w-[120rem] mx-auto flex">
+				<div className="w-1/2 flex items-start justify-start flex-col">
 					<Button passFunction={newControl}>Novo controle</Button>
-					<S.CardsContainer>
+					<div className="mt-[2rem] flex-wrap flex [&>div]:m-[0_1rem_1rem_0]">
 						{controls?.map((item) => (
 							<Card key={item.id} id={item.id} name={item.name} />
 						))}
-					</S.CardsContainer>
-				</S.Box>
-				<S.Box>
+					</div>
+				</div>
+				<div className="w-1/2 flex items-start justify-end">
 					<RenderCondition condition={!!selectedControl}>
 						<ControlContainer selectedControl={selectedControl} />
 					</RenderCondition>
-				</S.Box>
-			</S.Wrapper>
-		</S.Container>
+				</div>
+			</div>
+		</div>
 	)
 }
 

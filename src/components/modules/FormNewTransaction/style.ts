@@ -1,20 +1,3 @@
-import styled, { css } from 'styled-components'
-
-export const Container = styled.div`
-	${({ theme }) => css`
-		background-color: ${theme.colors.orange};
-		width: 47rem;
-		border-radius: 2.7rem;
-		height: 16.3rem;
-		display: flex;
-		justify-content: space-between;
-		padding: 2.4rem 3.1rem;
-	`}
-`
-export const Box = styled.div`
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: space-between;
-`
+// Tailwind CSS classes used in FormNewTransaction component
+// Container: bg-orange w-[47rem] rounded-[2.7rem] h-[16.3rem] flex justify-between p-[2.4rem_3.1rem]
+// Box: h-full flex flex-col items-center justify-between
