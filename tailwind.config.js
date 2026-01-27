@@ -52,7 +52,9 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('daisyui'),
+  ],
   safelist: [
     // Text colors
     'text-primary',
