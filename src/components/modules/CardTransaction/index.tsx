@@ -11,6 +11,7 @@ import {
 	updateValueTransactionAction,
 	updateVisibilityTransactionAction,
 } from '@/features/transactions/action'
+import { formatNumberCurrency } from '@/utils/formatCurrency'
 
 export type TypeCardProps = 'revenue' | 'expense'
 
@@ -54,13 +55,6 @@ const CardTransaction = ({
 		updateValueTransactionAction(idControl, id, numericValue)
 	}
 
-	function formatCurrencyFromNumber(value: number): string {
-		return value.toLocaleString('pt-BR', {
-			minimumFractionDigits: 2,
-			maximumFractionDigits: 2,
-		})
-	}
-
 	const bgColor = visible ? 'bg-lightBlue' : 'bg-darkBlue'
 
 	const typeBarColor = `bg-${type === 'expense' ? 'expense' : 'green'}`
@@ -99,7 +93,7 @@ const CardTransaction = ({
 					/>
 					<Input
 						name="valueEdit"
-						value={formatCurrencyFromNumber(inputValue)}
+						value={formatNumberCurrency(inputValue)}
 						onChange={(e) => handleValueEdit(e.target.value)}
 						error={undefined}
 						inputSize="small"

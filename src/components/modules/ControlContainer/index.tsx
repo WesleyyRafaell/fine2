@@ -10,7 +10,7 @@ interface IControlContainer {
 
 const ControlContainer = ({ selectedControl }: IControlContainer) => {
 	return (
-		<div className="[&>div:first-child]:mb-[7.5rem] [&>div:nth-child(3)]:mt-[7.5rem] [&>div:nth-child(5)]:m-[3rem_0]">
+		<div className="w-full px-4">
 			{selectedControl && (
 				<>
 					<ControlName selectedControl={selectedControl} />

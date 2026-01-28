@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
-
-import ResultIndicator from '@/components/elements/ResultIndicator'
+import { IoMdTrendingUp, IoMdTrendingDown } from 'react-icons/io'
 
 import { IControl } from '@/features/controls/models'
+import { SmallCard } from '@/components/atoms'
+import { formatNumberCurrency } from '@/utils/formatCurrency'
 
 type DisplayResultsProps = {
 	selectedControl: IControl | null
@@ -25,25 +26,34 @@ const DisplayResults = ({ selectedControl }: DisplayResultsProps) => {
 	}, [selectedControl])
 
 	return (
-		<div className="w-[47rem] flex flex-col items-center">
-			<ResultIndicator
-				moneySignColor="orange"
-				total={values?.total}
-				text="Total"
-			/>
-			<div className="flex justify-between w-full">
-				<ResultIndicator
-					moneySignColor="green"
-					total={values?.income}
-					text="Receitas"
-				/>
-				<ResultIndicator
-					moneySignColor="red"
-					total={values?.expense}
-					text="Despesas"
-				/>
+		<section className="mb-16 text-center">
+			<div className="flex flex-col items-center">
+				<div className="flex items-center justify-center gap-3">
+					<span className="text-4xl font-bold text-primary mt-4">R$</span>
+					<h2 className="text-9xl font-black tracking-tighter text-slate-900 dark:text-white">
+						{formatNumberCurrency(values?.total || 0)}
+					</h2>
+				</div>
+				<div className="flex gap-4 mt-8">
+					<SmallCard
+						value={`+ ${formatNumberCurrency(values?.income || 0)}`}
+						text="Receitas"
+						icon={<IoMdTrendingUp className="text-white text-3xl" />}
+						bg="bg-green"
+						colorBorder="border-green/20"
+						color="text-green"
+					/>
+					<SmallCard
+						value={`- ${formatNumberCurrency(values?.expense || 0)}`}
+						text="Despesas"
+						icon={<IoMdTrendingDown className="text-white text-3xl" />}
+						bg="bg-expense"
+						colorBorder="border-expense/20"
+						color="text-expense"
+					/>
+				</div>
 			</div>
-		</div>
+		</section>
 	)
 }
 

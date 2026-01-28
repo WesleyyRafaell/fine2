@@ -10,7 +10,7 @@
   --color-secondary-content: #ffffff;
   --color-accent: #cf815f;
   --color-accent-content: #ffffff;
-  --color-neutral: #2e2e2e;
+  --color-neutral: #64748B;
   --color-neutral-content: #ffffff;
   --color-base-100: #ffffff;
   --color-base-200: #f9fafb;
@@ -52,7 +52,11 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-primary text-white h-[66px] rounded-[12px] border-none font-bold cursor-pointer;
+    @apply bg-primary text-white px-4 rounded-[12px] border-none cursor-pointer;
+  }
+
+  .btn-neutral {
+    @apply bg-white text-neutral border border-slate-300 px-4 rounded-[12px] cursor-pointer;
   }
 
   .btn-small {
@@ -74,7 +78,7 @@
   }
 
   .input-base {
-    @apply bg-transparent border-none text-[1.6rem] outline-none text-white font-bold;
+    @apply bg-transparent border-none text-slate-500 text-[1.6rem] outline-none font-bold;
   }
 
   .input-base::placeholder {
@@ -114,4 +118,8 @@ html {
 body {
   font-family: Inter, Arial, Helvetica, sans-serif;
   background-color: #06092B;
+}
+
+p:hover {
+  background: none;
 }

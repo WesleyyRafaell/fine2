@@ -8,7 +8,7 @@ import { TypeCardProps } from '../CardTransaction'
 import { NewTransaction } from '@/features/transactions/models'
 import { createTransactionAction } from '@/features/transactions/action'
 import { IControl } from '@/features/controls/models'
-import { formatCurrency } from '@/utils/formatCurrency'
+import { formatStringCurrency } from '@/utils/formatCurrency'
 
 type IFormNewTransactionProps = {
 	selectedControl: IControl | null
@@ -104,7 +104,7 @@ const FormNewTransaction = ({ selectedControl }: IFormNewTransactionProps) => {
 				<Input
 					name="value"
 					value={value}
-					onChange={(e) => setValue(formatCurrency(e.target.value))}
+					onChange={(e) => setValue(formatStringCurrency(e.target.value))}
 					labelName="Valor"
 					placeholder="255"
 					inputSize="small"

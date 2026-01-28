@@ -1,4 +1,4 @@
-export function formatCurrency(data: string) {
+export function formatStringCurrency(data: string) {
 	const value = data
 		.replace(/[^\d]+/gi, '')
 		.split('')
@@ -19,3 +19,11 @@ export function formatCurrency(data: string) {
 
 	return result.split('').reverse().join('')
 }
+
+export const formatNumberCurrency = (value: number) =>
+	new Intl.NumberFormat('pt-BR', {
+		style: 'currency',
+		currency: 'BRL',
+	})
+		.format(value)
+		.replace(/\s?R\$\s?/, '')

@@ -1,3 +1,5 @@
+import { formatNumberCurrency } from '@/utils/formatCurrency'
+
 export type ResultIndicatorProps = {
 	total?: number
 	text?: string
@@ -9,14 +11,6 @@ const ResultIndicator = ({
 	total = 0,
 	moneySignColor = 'orange',
 }: ResultIndicatorProps) => {
-	const formatCurrency = (value: number) =>
-		new Intl.NumberFormat('pt-BR', {
-			style: 'currency',
-			currency: 'BRL',
-		})
-			.format(value)
-			.replace(/\s?R\$\s?/, '')
-
 	const getColor = () => {
 		switch (moneySignColor) {
 			case 'red':
@@ -38,7 +32,7 @@ const ResultIndicator = ({
 				data-testid="DisplayValue"
 				className="text-xxxlarge font-bold text-white pl-[2.0rem]"
 			>
-				{formatCurrency(total)}
+				{formatNumberCurrency(total)}
 			</p>
 		</div>
 	)
