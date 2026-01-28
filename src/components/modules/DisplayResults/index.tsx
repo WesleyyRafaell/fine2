@@ -39,7 +39,8 @@ const DisplayResults = ({ selectedControl }: DisplayResultsProps) => {
 						value={`+ ${formatNumberCurrency(values?.income || 0)}`}
 						text="Receitas"
 						icon={<IoMdTrendingUp className="text-white text-3xl" />}
-						bg="bg-green"
+						bg="bg-green/10"
+						bgIconColor="bg-green"
 						colorBorder="border-green/20"
 						color="text-green"
 					/>
@@ -47,7 +48,8 @@ const DisplayResults = ({ selectedControl }: DisplayResultsProps) => {
 						value={`- ${formatNumberCurrency(values?.expense || 0)}`}
 						text="Despesas"
 						icon={<IoMdTrendingDown className="text-white text-3xl" />}
-						bg="bg-expense"
+						bg="bg-expense/10"
+						bgIconColor="bg-expense"
 						colorBorder="border-expense/20"
 						color="text-expense"
 					/>

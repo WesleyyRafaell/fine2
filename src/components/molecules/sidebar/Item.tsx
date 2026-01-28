@@ -33,8 +33,13 @@ export const SidebarItem = ({
 				{children}
 			</p>
 
-			<button className="btn btn-ghost" onClick={openDeleteModal}>
-				<RiDeleteBack2Fill className="text-primary text-3xl" />
+			<button
+				className="btn btn-ghost hover:shadow-none"
+				onClick={openDeleteModal}
+			>
+				<RiDeleteBack2Fill
+					className={`text-3xl ${active ? 'text-white' : 'text-primary'}`}
+				/>
 			</button>
 		</li>
 	)

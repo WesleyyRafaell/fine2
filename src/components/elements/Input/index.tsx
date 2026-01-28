@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 export type InputProps = {
 	money?: boolean
 	labelName?: string
+	inputColor?: string
 	inputSize?: 'small' | 'regular'
 	error: string | undefined
 } & InputHTMLAttributes<HTMLInputElement>
@@ -14,6 +15,7 @@ const Input = ({
 	labelName,
 	placeholder = '',
 	inputSize = 'regular',
+	inputColor,
 	error,
 	...rest
 }: InputProps) => {
@@ -31,15 +33,19 @@ const Input = ({
 
 	return (
 		<div className="flex flex-col">
-			{!!labelName && <label htmlFor="input" className="label-base">{labelName}</label>}
-			<div className="flex">
+			{!!labelName && (
+				<label htmlFor="input" className="label-base">
+					{labelName}
+				</label>
+			)}
+			<div className="flex items-center">
 				{money ? (
 					<>
-						<p className="money-symbol">R$</p>
+						<p className={`money-symbol ${inputColor}`}>R$</p>
 						<input
 							type="text"
 							placeholder={placeholder}
-							className={`input-base ${inputWidth}`}
+							className={`input-base ${inputWidth} ${inputColor}`}
 							{...propsInput}
 						/>
 					</>

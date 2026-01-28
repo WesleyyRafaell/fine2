@@ -4,7 +4,7 @@ interface SidebarContentProps {
 
 export const SidebarContent = ({ children }: SidebarContentProps) => {
 	return (
-		<div className="drawer-content p-4">
+		<div className="drawer-content p-9">
 			{children}
 			<label
 				htmlFor="my-drawer-1"
