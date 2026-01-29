@@ -38,10 +38,10 @@ const View = ({ controls, selectedControl, newControl }: IViewProps) => {
 				</Sidebar.Content>
 
 				<Sidebar.Side>
-					<Sidebar.Header />
-					<Sidebar.Actions onClick={newControl} />
-
 					<Sidebar.Menu>
+						<Sidebar.Header />
+						<Sidebar.Actions onClick={newControl} />
+
 						{controls?.map((item) => (
 							<Sidebar.Item
 								key={item.id}

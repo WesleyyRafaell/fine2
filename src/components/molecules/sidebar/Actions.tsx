@@ -6,7 +6,7 @@ interface SidebarActionsProps {
 
 export const SidebarActions = ({ onClick }: SidebarActionsProps) => {
 	return (
-		<div className="flex items-center justify-between py-4 px-6 mt-8">
+		<div className="flex items-center justify-between py-4 px-2 my-8 bg-white">
 			<p className="text-xl font-bold text-neutral">Controles</p>
 
 			<div className="tooltip">

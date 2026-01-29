@@ -53,7 +53,7 @@ const Input = ({
 					<input
 						type="text"
 						placeholder={placeholder}
-						className={`input-base ${inputWidth}`}
+						className={`input-base ${inputWidth} border-b border-border-slate-300 dark:border-slate-600 ${inputColor}`}
 						{...propsInput}
 					/>
 				)}

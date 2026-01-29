@@ -30,11 +30,11 @@ const DisplayResults = ({ selectedControl }: DisplayResultsProps) => {
 			<div className="flex flex-col items-center">
 				<div className="flex items-center justify-center gap-3">
 					<span className="text-4xl font-bold text-primary mt-4">R$</span>
-					<h2 className="text-9xl font-black tracking-tighter text-slate-900 dark:text-white">
+					<h2 className="text-6xl sm:text-9xl font-black tracking-tighter text-slate-900 dark:text-white">
 						{formatNumberCurrency(values?.total || 0)}
 					</h2>
 				</div>
-				<div className="flex gap-4 mt-8">
+				<div className="flex flex-col sm:flex-row gap-4 mt-8">
 					<SmallCard
 						value={`+ ${formatNumberCurrency(values?.income || 0)}`}
 						text="Receitas"

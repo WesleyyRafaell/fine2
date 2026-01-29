@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import Input from '../../elements/Input'
 
 import { ITransaction } from '@/features/transactions/models'
 import {
@@ -62,7 +61,7 @@ const CardTransaction = ({
 	return (
 		<div className="mb-7">
 			<div
-				className={`flex items-center gap-4 p-5 rounded-3xl  border border-slate-100/50 dark:border-slate-700/50 ${bgColor}`}
+				className={`flex flex-col items-center sm:flex-row sm:items-center  gap-6 sm:gap-4 p-5 rounded-3xl  border border-slate-100/50 dark:border-slate-700/50 ${bgColor}`}
 			>
 				<div className="flex gap-2 bg-white dark:bg-slate-700 p-1.5 rounded-full shadow-inner">
 					<button
@@ -76,24 +75,31 @@ const CardTransaction = ({
 						title="Despesa"
 					></button>
 				</div>
-				<div className="flex-1 px-4">
-					<Input
+
+				<div className="w-full flex-1">
+					<input
+						className="w-full text-2xl text-slate-500 font-bold bg-slate-100 dark:bg-slate-800 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-primary outline-none py-3 px-4 max-w-none lg:max-w-xs"
+						placeholder="Ex: Aluguel"
+						type="text"
 						name="nameEdit"
 						value={inputName}
 						onChange={(e) => handleNameEdit(e.target.value)}
-						error={undefined}
-						inputSize="regular"
 					/>
 				</div>
-				<div className="text-right min-w-[120px]">
-					<Input
+
+				<div className="flex items-center w-full bg-slate-100 dark:bg-slate-800 border border-slate-200 rounded-2xl focus-within:ring-2 focus-within:ring-primary py-3 px-4  max-w-none lg:max-w-52">
+					<p
+						className={`money-symbol ${type === 'expense' ? 'text-expense' : 'text-green'}`}
+					>
+						R$
+					</p>
+					<input
+						className={`text-2xl font-bold bg-transparent outline-none ${type === 'expense' ? 'text-expense' : 'text-green'}`}
+						placeholder="0,00"
+						type="text"
 						name="valueEdit"
 						value={formatNumberCurrency(inputValue)}
 						onChange={(e) => handleValueEdit(e.target.value)}
-						error={undefined}
-						inputSize="small"
-						inputColor={type === 'expense' ? 'text-expense' : 'text-green'}
-						money
 					/>
 				</div>
 				<div className="flex items-center gap-2 ml-4">

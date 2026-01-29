@@ -37,9 +37,11 @@ const ControlContainer = ({
 		<div className="w-full px-4">
 			{selectedControl && (
 				<>
-					<ControlName selectedControl={selectedControl} />
+					<div className="flex w-full justify-center lg:justify-start py-7">
+						<ControlName selectedControl={selectedControl} />
+					</div>
 					<DisplayResults selectedControl={selectedControl} />
-					<div className="flex gap-8">
+					<div className="flex flex-col-reverse items-center lg:items-start lg:flex-row gap-8">
 						<div className="flex flex-col flex-1 gap-8 mb-[4rem]">
 							<div className="grid grid-cols-1 gap-10">
 								<div className="control-card rounded-[3rem] p-8 bg-white">

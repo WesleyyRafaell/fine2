@@ -81,7 +81,7 @@ const FormNewTransaction = ({ selectedControl }: IFormNewTransactionProps) => {
 	}, [submitted, catchingErrors])
 
 	return (
-		<div className="w-4/12">
+		<div className="w-full lg:w-4/12">
 			<div className="bg-white top-8 glass-card p-6 rounded-[3rem]">
 				<div className="flex items-center gap-4 mb-6">
 					<IoAddCircle className="text-primary text-6xl" />

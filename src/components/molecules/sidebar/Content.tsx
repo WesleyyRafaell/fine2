@@ -5,13 +5,13 @@ interface SidebarContentProps {
 export const SidebarContent = ({ children }: SidebarContentProps) => {
 	return (
 		<div className="drawer-content p-9">
-			{children}
 			<label
 				htmlFor="my-drawer-1"
-				className="btn drawer-button lg:hidden bg-primary"
+				className="btn drawer-button lg:hidden bg-primary text-white font-bold p-5 rounded-2xl mb-6"
 			>
-				Open drawer
+				Abrir controles
 			</label>
+			{children}
 		</div>
 	)
 }

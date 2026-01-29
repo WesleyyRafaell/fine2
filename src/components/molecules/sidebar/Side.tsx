@@ -4,7 +4,7 @@ interface SidebarSideProps {
 
 export const SidebarSide = ({ children }: SidebarSideProps) => {
 	return (
-		<div className="drawer-side bg-white pt-9">
+		<div className="drawer-side">
 			<label
 				htmlFor="my-drawer-1"
 				aria-label="close sidebar"
