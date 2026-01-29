@@ -39,48 +39,50 @@ const ControlContainer = ({
 				<>
 					<ControlName selectedControl={selectedControl} />
 					<DisplayResults selectedControl={selectedControl} />
-					<div className="flex flex-col gap-8 mb-[4rem]">
-						<div className="grid grid-cols-1 gap-10">
-							<div className="control-card rounded-[3rem] p-8 bg-white">
-								<div className="flex justify-between items-center mb-10">
-									<div className="flex items-center gap-4">
-										<div>
-											<p className="text-slate-400 font-semibold text-xl">
-												{controlsQuantity}{' '}
-												{controlsQuantity === 1 ? 'transação' : 'transações'}
-											</p>
+					<div className="flex gap-8">
+						<div className="flex flex-col flex-1 gap-8 mb-[4rem]">
+							<div className="grid grid-cols-1 gap-10">
+								<div className="control-card rounded-[3rem] p-8 bg-white">
+									<div className="flex justify-between items-center mb-10">
+										<div className="flex items-center gap-4">
+											<div>
+												<p className="text-slate-400 font-semibold text-xl">
+													{controlsQuantity}{' '}
+													{controlsQuantity === 1 ? 'transação' : 'transações'}
+												</p>
+											</div>
 										</div>
 									</div>
+									{selectedControl.transactions?.map((item) => (
+										<CardTransaction
+											key={item.id}
+											idControl={selectedControl.id}
+											id={item.id}
+											name={item.name}
+											value={item.value}
+											type={item.type}
+											visible={item.visible}
+											openDeleteModal={() => {
+												setTransactionToDelete({
+													idControl: selectedControl.id,
+													id: item.id,
+													name: item.name,
+												})
+												;(
+													document.getElementById(
+														'modal_to_delete_transaction',
+													) as HTMLDialogElement | null
+												)?.showModal()
+											}}
+										/>
+									))}
 								</div>
-								{selectedControl.transactions?.map((item) => (
-									<CardTransaction
-										key={item.id}
-										idControl={selectedControl.id}
-										id={item.id}
-										name={item.name}
-										value={item.value}
-										type={item.type}
-										visible={item.visible}
-										openDeleteModal={() => {
-											setTransactionToDelete({
-												idControl: selectedControl.id,
-												id: item.id,
-												name: item.name,
-											})
-											;(
-												document.getElementById(
-													'modal_to_delete_transaction',
-												) as HTMLDialogElement | null
-											)?.showModal()
-										}}
-									/>
-								))}
 							</div>
 						</div>
+						<FormNewTransaction selectedControl={selectedControl} />
 					</div>
 				</>
 			)}
-			{/* <FormNewTransaction selectedControl={selectedControl} /> */}
 
 			<dialog id="modal_to_delete_transaction" className="modal">
 				<div className="modal-box w-11/12 max-w-3xl p-7">
