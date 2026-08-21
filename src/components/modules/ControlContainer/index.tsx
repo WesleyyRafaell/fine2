@@ -1,10 +1,27 @@
 import { ControlName } from '@/components/elements'
-import CardTransaction from '../CardTransaction'
+import SortableCardTransaction from '../CardTransaction/SortableCardTransaction'
 import DisplayResults from '../DisplayResults'
 import FormNewTransaction from '../FormNewTransaction'
 import { IControl } from '@/features/controls/models'
-import { useState } from 'react'
-import { deleteTransactionAction } from '@/features/transactions/action'
+import { useCallback, useState } from 'react'
+import {
+	deleteTransactionAction,
+	reorderTransactionsAction,
+} from '@/features/transactions/action'
+import {
+	DndContext,
+	closestCenter,
+	KeyboardSensor,
+	PointerSensor,
+	useSensor,
+	useSensors,
+	type DragEndEvent,
+} from '@dnd-kit/core'
+import {
+	SortableContext,
+	sortableKeyboardCoordinates,
+	verticalListSortingStrategy,
+} from '@dnd-kit/sortable'
 
 interface IControlContainer {
 	selectedControl: IControl | null
@@ -24,6 +41,34 @@ const ControlContainer = ({
 	const [transactionToDelete, setTransactionToDelete] =
 		useState<IDeleteModalItem | null>(null)
 
+	const sensors = useSensors(
+		useSensor(PointerSensor, {
+			activationConstraint: { distance: 5 },
+		}),
+		useSensor(KeyboardSensor, {
+			coordinateGetter: sortableKeyboardCoordinates,
+		}),
+	)
+
+	const handleDragEnd = useCallback(
+		(event: DragEndEvent) => {
+			const { active, over } = event
+			if (!over || !selectedControl || active.id === over.id) return
+
+			const oldIndex = selectedControl.transactions.findIndex(
+				(t) => t.id === active.id,
+			)
+			const newIndex = selectedControl.transactions.findIndex(
+				(t) => t.id === over.id,
+			)
+
+			if (oldIndex !== -1 && newIndex !== -1) {
+				reorderTransactionsAction(selectedControl.id, oldIndex, newIndex)
+			}
+		},
+		[selectedControl],
+	)
+
 	const handleDelete = () => {
 		if (transactionToDelete?.idControl && transactionToDelete?.id) {
 			deleteTransactionAction(
@@ -36,7 +81,11 @@ const ControlContainer = ({
 	return (
 		<div className="w-full px-4">
 			{selectedControl && (
-				<>
+				<DndContext
+					sensors={sensors}
+					collisionDetection={closestCenter}
+					onDragEnd={handleDragEnd}
+				>
 					<div className="flex w-full justify-center lg:justify-start py-7">
 						<ControlName selectedControl={selectedControl} />
 					</div>
@@ -55,35 +104,40 @@ const ControlContainer = ({
 											</div>
 										</div>
 									</div>
-									{selectedControl.transactions?.map((item) => (
-										<CardTransaction
-											key={item.id}
-											idControl={selectedControl.id}
-											id={item.id}
-											name={item.name}
-											value={item.value}
-											type={item.type}
-											visible={item.visible}
-											openDeleteModal={() => {
-												setTransactionToDelete({
-													idControl: selectedControl.id,
-													id: item.id,
-													name: item.name,
-												})
-												;(
-													document.getElementById(
-														'modal_to_delete_transaction',
-													) as HTMLDialogElement | null
-												)?.showModal()
-											}}
-										/>
-									))}
+									<SortableContext
+										items={selectedControl.transactions.map((t) => t.id)}
+										strategy={verticalListSortingStrategy}
+									>
+										{selectedControl.transactions?.map((item) => (
+											<SortableCardTransaction
+												key={item.id}
+												idControl={selectedControl.id}
+												id={item.id}
+												name={item.name}
+												value={item.value}
+												type={item.type}
+												visible={item.visible}
+												openDeleteModal={() => {
+													setTransactionToDelete({
+														idControl: selectedControl.id,
+														id: item.id,
+														name: item.name,
+													})
+													;(
+														document.getElementById(
+															'modal_to_delete_transaction',
+														) as HTMLDialogElement | null
+													)?.showModal()
+												}}
+											/>
+										))}
+									</SortableContext>
 								</div>
 							</div>
 						</div>
 						<FormNewTransaction selectedControl={selectedControl} />
 					</div>
-				</>
+				</DndContext>
 			)}
 
 			<dialog id="modal_to_delete_transaction" className="modal">

@@ -51,3 +51,11 @@ export function deleteTransactionAction(
 ): void {
 	TransactionRepository.deleteTransaction(idControl, idTransaction)
 }
+
+export function reorderTransactionsAction(
+	idControl: string,
+	oldIndex: number,
+	newIndex: number,
+): void {
+	TransactionRepository.reorderTransactions(idControl, oldIndex, newIndex)
+}

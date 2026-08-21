@@ -32,4 +32,9 @@ export interface ITransactionRepository {
 		visible: boolean,
 	) => void
 	deleteTransaction: (idControl: string, idTransaction: string) => void
+	reorderTransactions: (
+		idControl: string,
+		oldIndex: number,
+		newIndex: number,
+	) => void
 }
